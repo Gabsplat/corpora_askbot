@@ -23,7 +23,7 @@ export default function HelpMenu() {
           Informe
         </Menu.Item>
         <Menu.Item
-          icon={<Database size={18} />}
+          icon={<BrandGithub size={18} />}
           onClick={() => {
             window.open("https://github.com/Gabsplat/corpora_askbot", "_blank");
           }}
