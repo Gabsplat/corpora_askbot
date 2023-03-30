@@ -1,5 +1,5 @@
 import { Button, Menu } from "@mantine/core";
-import { Book, Database } from "tabler-icons-react";
+import { Book, BrandGithub, Database } from "tabler-icons-react";
 
 export default function HelpMenu() {
   return (
@@ -21,6 +21,14 @@ export default function HelpMenu() {
           }}
         >
           Informe
+        </Menu.Item>
+        <Menu.Item
+          icon={<Database size={18} />}
+          onClick={() => {
+            window.open("https://github.com/Gabsplat/corpora_askbot", "_blank");
+          }}
+        >
+          Repositorio
         </Menu.Item>
         <Menu.Item
           icon={<Database size={18} />}
