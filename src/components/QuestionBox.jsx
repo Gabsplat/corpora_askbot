@@ -35,7 +35,7 @@ export default function QuestionBox() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setBotAssistantResponse(data.botResponse);
+        setBotAssistantResponse(data.botResponse.split("\n"));
         setBotVectors(data.vectors);
         setAskedQuestion(true);
         setQuestion(inputRef.current.value);
@@ -123,7 +123,7 @@ export default function QuestionBox() {
             mt="sm"
             style={{ display: "flex", alignItems: "center", gap: "10px" }}
           >
-            <Box style={{ width: "80px" }}>
+            <Box style={{ width: "60px" }}>
               <Robot
                 size={120}
                 height="100%"
@@ -133,9 +133,12 @@ export default function QuestionBox() {
                 style={{ marginRight: "10px" }}
               />
             </Box>
-            <Box>
+            <Box style={{ flex: 1 }}>
               {question.length > 0 ? <Title order={4}>{question}</Title> : null}
-              <Text style={{ flex: 1 }}>{botAssistantResponse}</Text>
+              {botAssistantResponse.length > 0 &&
+                botAssistantResponse.map((value, index) => (
+                  <Text key={index}>{value}</Text>
+                ))}
             </Box>
           </Box>
         ) : null}
