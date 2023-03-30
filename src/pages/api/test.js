@@ -6,5 +6,12 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default async function handler(req, res) {
-  res.status(200).json(openai);
+  const completion = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [
+      { role: "system", content: "Sos un botazo bro, equipo de Corpora." },
+      { role: "user", content: "De qué equipo formas parte?" },
+    ],
+  });
+  res.status(200).json(completion.data.choices[0].message.content);
 }
