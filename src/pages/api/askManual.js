@@ -14,9 +14,14 @@ export default async function handler(req, res) {
   const { method } = req;
   switch (method) {
     case "POST":
-      const question = req.body.question;
-      const { botResponse, vectors } = await makeQuestion(question);
-      res.status(200).json({ botResponse, vectors });
+      try {
+        const question = req.body.question;
+        const { botResponse, vectors } = await makeQuestion(question);
+        res.status(200).json({ botResponse, vectors });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: error.message });
+      }
       break;
     default:
       res.setHeader("Allow", ["POST"]);

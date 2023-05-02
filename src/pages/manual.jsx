@@ -1,6 +1,6 @@
 import ChatBox from "@/components/ChatBox";
 import RelevantBar from "@/components/RelevantBar";
-import { Container, Title, createStyles } from "@mantine/core";
+import { Container, Paper, Title, createStyles } from "@mantine/core";
 import { useState } from "react";
 
 const useStyles = createStyles((theme) => ({
@@ -54,9 +54,15 @@ function Manual() {
 
   return (
     <div className={classes.bot}>
-      <Title className={classes.title} order={1}>
-        Manual
-      </Title>
+      <Paper
+        className={classes.title}
+        withBorder
+        shadow="md"
+        padding="md"
+        radius="md"
+      >
+        <Title order={1}>Manual</Title>
+      </Paper>
       <div style={{ flex: 1 }}>
         <ChatBox answer={answer} fetchAnswer={fetchAnswer} />
       </div>
