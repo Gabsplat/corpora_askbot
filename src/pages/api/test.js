@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   try {
     let queryEmbedding = await openai.createEmbedding({
       model: EMBEDDING_MODEL,
-      input: question,
+      input: "Test",
     });
 
     res.status(200).json({ queryEmbedding });
