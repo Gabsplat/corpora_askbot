@@ -22,7 +22,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function manual() {
+function Manual() {
   const { classes } = useStyles();
 
   const [isLoading, setLoading] = useState(false);
@@ -74,4 +74,4 @@ function manual() {
   );
 }
 
-export default manual;
+export default Manual;
