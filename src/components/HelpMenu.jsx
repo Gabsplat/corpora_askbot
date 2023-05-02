@@ -1,5 +1,5 @@
 import { Button, Menu } from "@mantine/core";
-import { Book, BrandGithub, Database } from "tabler-icons-react";
+import { Book, BrandGithub, Database } from "@tabler/icons-react";
 
 export default function HelpMenu() {
   return (

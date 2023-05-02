@@ -2,7 +2,7 @@ const { GoogleSpreadsheet } = require("google-spreadsheet");
 
 // Funciones de Sheets
 
-async function getSheetsData() {
+export async function getSheetsData() {
   const SHEET_ID = "1a-bGGxT7mtc6MT2AXzmSN-Q7YBNnLpfskg1zmliM3KI";
   const doc = new GoogleSpreadsheet(SHEET_ID);
   await doc.useServiceAccountAuth({
@@ -11,39 +11,126 @@ async function getSheetsData() {
   });
 
   await doc.loadInfo();
-  const sheetInversores = doc.sheetsByIndex[2];
-  const sheetExpensas = doc.sheetsByIndex[3];
+  const sheetInversores = doc.sheetsByIndex[0];
+  const sheetExpensas = doc.sheetsByIndex[1];
+  const sheetUtils = doc.sheetsByIndex[2];
+
+  const rowsUtilsSheet = await sheetUtils.getRows();
+
+  let inversoresCap = 0;
+  if (
+    rowsUtilsSheet[0]?.lastProcessedInversores === undefined ||
+    rowsUtilsSheet[0]?.lastProcessedInversores === ""
+  ) {
+    inversoresCap = 0;
+  } else {
+    inversoresCap = parseInt(rowsUtilsSheet[0].lastProcessedInversores);
+  }
+
+  let expensasCap = 0;
+  if (
+    rowsUtilsSheet[0]?.lastProcessedExpensas === undefined ||
+    rowsUtilsSheet[0]?.lastProcessedExpensas === ""
+  ) {
+    expensasCap = 0;
+  } else {
+    expensasCap = parseInt(rowsUtilsSheet[0].lastProcessedExpensas);
+  }
 
   const rowsInversoresSheet = await sheetInversores.getRows();
-  const rowsInversores = rowsInversoresSheet.map((row) => {
-    return {
-      inversorid: row.inversorid,
-      nombre: row.nombre,
-      apellido: row.apellido,
-      montoinversiondesde: row.montoinversiondesde,
-      montoinversionhasta: row.montoinversionhasta,
-      fuentecontactoid: row.fuentecontactoid,
-      estadoinversorid: row.estadoinversorid,
-    };
-  });
+  const amountOfRowsInversores = rowsInversoresSheet.length;
+  const rowsInversores = rowsInversoresSheet
+    .map((row) => {
+      return {
+        inversorid: row.inversorid,
+        nombre: row.nombre,
+        apellido: row.apellido,
+        montoinversiondesde: row.montoinversiondesde,
+        montoinversionhasta: row.montoinversionhasta,
+        fuentecontactoid: row.fuentecontactoid,
+        estadoinversorid: row.estadoinversorid,
+      };
+    })
+    .slice(inversoresCap, amountOfRowsInversores);
 
   const rowsExpensasSheet = await sheetExpensas.getRows();
-  const rowsExpensas = rowsExpensasSheet.map((row) => {
-    return {
-      inversorid: row.inversorid,
-      tipo: row.tipo,
-      tipomovimientoid: row.tipomovimientoid,
-      fecha: row.fecha,
-      monto: row.monto,
-      monedamonto: row.monedamonto,
-      franquiciaid: row.franquiciaid,
-      rubroid: row.rubroid,
-      subrubroid: row.subrubroid,
-    };
-  });
+  const amountOfRowsExpensas = rowsExpensasSheet.length;
+  const rowsExpensas = rowsExpensasSheet
+    .map((row) => {
+      return {
+        inversorid: row.inversorid,
+        tipo: row.tipo,
+        tipomovimientoid: row.tipomovimientoid,
+        fecha: row.fecha,
+        monto: row.monto,
+        monedamonto: row.monedamonto,
+        franquiciaid: row.franquiciaid,
+        rubroid: row.rubroid,
+        subrubroid: row.subrubroid,
+      };
+    })
+    .slice(expensasCap, amountOfRowsExpensas);
 
-  return { rowsInversores, rowsExpensas };
+  rowsUtilsSheet[0].lastProcessedInversores = amountOfRowsInversores;
+  rowsUtilsSheet[0].lastProcessedExpensas = amountOfRowsExpensas;
+  rowsUtilsSheet[0].save();
+
+  return {
+    rowsInversores,
+    rowsExpensas,
+  };
 }
+
+// async function getSheetsData() {
+//   const SHEET_ID = "1a-bGGxT7mtc6MT2AXzmSN-Q7YBNnLpfskg1zmliM3KI";
+//   const doc = new GoogleSpreadsheet(SHEET_ID);
+//   await doc.useServiceAccountAuth({
+//     client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+//     private_key: process.env.GOOGLE_PRIVATE_KEY,
+//   });
+
+//   await doc.loadInfo();
+//   const sheetInversores = doc.sheetsByIndex[0];
+//   const sheetExpensas = doc.sheetsByIndex[1];
+//   const sheetUtils = doc.sheetsByIndex[2];
+
+//   const rowsUtilsSheet = await sheetUtils.getRows();
+
+//   const lastProcessedInversores = rowsUtilsSheet[0].lastProcessedInversores;
+//   const lastProcessedExpensas = rowsUtilsSheet[0].lastProcessedExpensas;
+//   console.log("Last processed inversores", lastProcessedInversores);
+//   console.log("Last processed expensas", lastProcessedExpensas);
+
+//   const rowsInversoresSheet = await sheetInversores.getRows();
+//   const rowsInversores = rowsInversoresSheet.map((row) => {
+//     return {
+//       inversorid: row.inversorid,
+//       nombre: row.nombre,
+//       apellido: row.apellido,
+//       montoinversiondesde: row.montoinversiondesde,
+//       montoinversionhasta: row.montoinversionhasta,
+//       fuentecontactoid: row.fuentecontactoid,
+//       estadoinversorid: row.estadoinversorid,
+//     };
+//   });
+
+//   const rowsExpensasSheet = await sheetExpensas.getRows();
+//   const rowsExpensas = rowsExpensasSheet.map((row) => {
+//     return {
+//       inversorid: row.inversorid,
+//       tipo: row.tipo,
+//       tipomovimientoid: row.tipomovimientoid,
+//       fecha: row.fecha,
+//       monto: row.monto,
+//       monedamonto: row.monedamonto,
+//       franquiciaid: row.franquiciaid,
+//       rubroid: row.rubroid,
+//       subrubroid: row.subrubroid,
+//     };
+//   });
+
+//   return { rowsInversores, rowsExpensas };
+// }
 
 export async function getProcessedData() {
   const { rowsInversores, rowsExpensas } = await getSheetsData();

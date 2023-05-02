@@ -9,9 +9,10 @@ import {
   Textarea,
   Title,
 } from "@mantine/core";
+import { Robot } from "@tabler/icons-react";
 import React, { useRef, useState } from "react";
-import { Robot } from "tabler-icons-react";
 import HelpMenu from "./HelpMenu";
+import RoundedLogo from "./RoundedLogo";
 
 export default function QuestionBox() {
   const [loadingQuestion, setLoadingQuestion] = useState(false);
@@ -47,20 +48,8 @@ export default function QuestionBox() {
   };
 
   return (
-    <Box w="30%">
-      <Box
-        style={{
-          position: "relative",
-          margin: "0 auto",
-          width: "100px",
-          backgroundColor: "#1a0948e8",
-          padding: "10px",
-          borderRadius: "100%",
-          border: "1px solid #8282825c",
-        }}
-      >
-        <img style={{ width: "100%" }} src="/images/logo.png" />
-      </Box>
+    <Box w="40%">
+      <RoundedLogo />
       <Paper
         mt="md"
         style={{
