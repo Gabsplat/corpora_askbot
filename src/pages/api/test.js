@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       input: "Test",
     });
 
-    res.status(200).json({ queryEmbedding });
+    res.status(200).json({ embed: queryEmbedding.data.data[0].embedding });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
