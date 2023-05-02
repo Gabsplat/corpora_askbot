@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { supabase } from "@/server/supabaseClient";
+// import { supabase } from "@/server/supabaseClient";
 import { PineconeClient } from "@pinecone-database/pinecone";
+import { createClient } from "@supabase/supabase-js";
 const { Configuration, OpenAIApi } = require("openai");
 
 // Open ai
@@ -9,6 +10,10 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 const EMBEDDING_MODEL = "text-embedding-ada-002";
+
+const supabaseUrl = "https://mqwsoqczhwoxylzhjgtr.supabase.co";
+const supabaseKey = process.env.SUPABASE_KEY;
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default async function handler(req, res) {
   const { method } = req;

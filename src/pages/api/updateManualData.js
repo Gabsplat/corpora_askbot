@@ -1,5 +1,5 @@
 const { GoogleSpreadsheet } = require("google-spreadsheet");
-import { supabase } from "@/server/supabaseClient";
+// import { supabase } from "@/server/supabaseClient";
 import { PineconeClient } from "@pinecone-database/pinecone";
 import { v4 as uuidv4 } from "uuid";
 const { Configuration, OpenAIApi } = require("openai");
@@ -10,6 +10,10 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 const MODEL = "text-embedding-ada-002";
+
+const supabaseUrl = "https://mqwsoqczhwoxylzhjgtr.supabase.co";
+const supabaseKey = process.env.SUPABASE_KEY;
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default async function handler(req, res) {
   const { method } = req;
