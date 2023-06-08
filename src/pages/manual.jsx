@@ -42,10 +42,7 @@ function Manual() {
       .then((res) => res.json())
       .then((data) => {
         setAnswer(data.botResponse.split("\n"));
-        let relevantData = data.vectors.map((vector) => {
-          return vector.title + ": " + vector.body;
-        });
-        setRelevantData(relevantData);
+        setRelevantData(data.vectors);
       })
       .catch((err) => {
         console.log(err);
@@ -54,15 +51,9 @@ function Manual() {
 
   return (
     <div className={classes.bot}>
-      <Paper
-        className={classes.title}
-        withBorder
-        shadow="md"
-        padding="md"
-        radius="md"
-      >
-        <Title order={1}>Manual</Title>
-      </Paper>
+      <Title className={classes.title} order={1}>
+        Manual Colonial
+      </Title>
       <div style={{ flex: 1 }}>
         <ChatBox answer={answer} fetchAnswer={fetchAnswer} />
       </div>

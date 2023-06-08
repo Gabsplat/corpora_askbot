@@ -88,7 +88,7 @@ const useStyles = createStyles((theme) => ({
 
 const data = [
   { link: "/inversores", label: "Inversores", icon: IconCashBanknote },
-  { link: "/manual", label: "Manual", icon: IconBook2 },
+  { link: "/manual", label: "Manual Colonial", icon: IconBook2 },
 ];
 
 export function LeftNavbar() {

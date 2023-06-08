@@ -15,7 +15,7 @@
     "@mantine/form": "^6.0.1",
     "@mantine/hooks": "^6.0.1",
     "@mantine/next": "^6.0.1",
-    "@pinecone-database/pinecone": "^0.0.10",
+    "@pinecone-database/pinecone": "^0.0.12",
     "@supabase/supabase-js": "^2.21.0",
     "@tabler/icons": "^2.10.0",
     "@tabler/icons-react": "^2.17.0",
