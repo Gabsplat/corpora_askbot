@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
     position: "sticky",
     width: "100%",
     top: "50%",
-    transform: "translateY(-50%)",
+    // transform: "translateY(-50%)",
   },
   title: {
     color: theme.colors.teal[6],
