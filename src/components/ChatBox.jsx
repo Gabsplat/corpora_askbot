@@ -17,7 +17,7 @@ const useStyles = createStyles((theme) => ({
   box: {
     position: "sticky",
     width: "100%",
-    top: "50%",
+    top: "20%",
     // transform: "translateY(-50%)",
   },
   title: {
