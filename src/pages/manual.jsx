@@ -39,7 +39,12 @@ function Manual() {
         question,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Error ${res.status}: ${res.statusText}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         setAnswer(data.botResponse.split("\n"));
         setRelevantData(data.vectors);
